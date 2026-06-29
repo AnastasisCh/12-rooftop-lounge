@@ -1,0 +1,267 @@
+<div class="top-bar">Rooftop Lounge · {{ t.contact.hours }} · Athens</div>
+
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="nav-inner">
+    <ul class="nav-left" [class.open]="menuOpen">
+      <li><a (click)="scrollTo('hero')">{{ t.nav.home }}</a></li>
+      <li><a (click)="scrollTo('menu')">{{ t.nav.menu }}</a></li>
+    </ul>
+    <div class="logo" (click)="scrollTo('hero')">
+      <span class="logo-gr">ROOFTOP</span>
+      <span class="logo-en">LOUNGE</span>
+    </div>
+    <ul class="nav-right" [class.open]="menuOpen">
+      <li><a (click)="scrollTo('about')">{{ t.nav.about }}</a></li>
+      <li><a (click)="scrollTo('reviews')">{{ t.nav.reviews }}</a></li>
+      <li><a (click)="scrollTo('contact')">{{ t.nav.contact }}</a></li>
+    </ul>
+    <div class="nav-controls">
+      <button class="theme-toggle" (click)="toggleTheme()" title="Toggle theme">{{ themeIcon }}</button>
+      <button class="culture-toggle" (click)="toggleCulture()">{{ cultureLabel }}</button>
+    </div>
+    <button class="burger" (click)="toggleMenu()" [class.active]="menuOpen">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-gradient"></div>
+  <div class="hero-stars"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">{{ t.hero.label }}</div>
+    <h1>{{ t.hero.title }}<br><em>{{ t.hero.titleEm }}</em></h1>
+    <p class="hero-desc">{{ t.hero.subtitle }}</p>
+    <div class="hero-actions">
+      <button class="btn btn-rose" (click)="scrollTo('contact')">{{ t.hero.cta }}</button>
+      <button class="btn btn-glass" (click)="scrollTo('menu')">{{ t.hero.ctaSecondary }}</button>
+    </div>
+    <div class="hero-info-strip">
+      <div class="hi">
+        <span class="hi-label">{{ culture === 'el' ? 'Ανοιχτά' : 'Opens' }}</span>
+        <span class="hi-value">18:00</span>
+      </div>
+      <div class="hi-sep"></div>
+      <div class="hi">
+        <span class="hi-label">{{ culture === 'el' ? 'Όροφος' : 'Floor' }}</span>
+        <span class="hi-value">8{{ culture === 'el' ? 'ος' : 'th' }}</span>
+      </div>
+      <div class="hi-sep"></div>
+      <div class="hi">
+        <span class="hi-label">{{ culture === 'el' ? 'Θέα' : 'View' }}</span>
+        <span class="hi-value">360°</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img [src]="config.images.hero" alt="Rooftop Lounge Athens" loading="eager" />
+    <div class="hero-visual-overlay"></div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Rooftop Lounge</span><span class="sep">◈</span>
+    <span>Signature Cocktails</span><span class="sep">◈</span>
+    <span>Athens Skyline</span><span class="sep">◈</span>
+    <span>Πανοραμική Θέα</span><span class="sep">◈</span>
+    <span>Fine Dining</span><span class="sep">◈</span>
+    <span>Βραδιές κάτω από τα Άστρα</span><span class="sep">◈</span>
+    <span>Athens · 8th Floor</span><span class="sep">◈</span>
+    <span>Rooftop Lounge</span><span class="sep">◈</span>
+    <span>Signature Cocktails</span><span class="sep">◈</span>
+    <span>Athens Skyline</span><span class="sep">◈</span>
+    <span>Πανοραμική Θέα</span><span class="sep">◈</span>
+    <span>Fine Dining</span><span class="sep">◈</span>
+  </div>
+</div>
+
+<section class="menu-section" id="menu">
+  <div class="container">
+    <div class="menu-header">
+      <span class="section-label">{{ t.menu.label }}</span>
+      <h2 class="section-title">{{ t.menu.title }} <em>{{ t.menu.titleEm }}</em></h2>
+    </div>
+    <div class="menu-grid">
+      @for (item of t.menu.items; track item.name) {
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.desc }}</p>
+          </div>
+          <span class="menu-item-price">{{ item.price }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-img">
+      <img [src]="config.images.about" alt="Rooftop Lounge" loading="lazy" />
+      <div class="about-img-overlay"></div>
+    </div>
+    <div class="about-text">
+      <span class="section-label">{{ t.about.label }}</span>
+      <h2 class="section-title">{{ t.about.title }}<br><em>{{ t.about.titleEm }}</em></h2>
+      <p>{{ t.about.p1 }}</p>
+      <p>{{ t.about.p2 }}</p>
+      <blockquote>"{{ t.about.quote }}"</blockquote>
+      <button class="btn btn-rose" (click)="scrollTo('contact')">{{ t.about.cta }}</button>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="reviews-header">
+      <span class="section-label">{{ t.reviews.label }}</span>
+      <h2 class="section-title">{{ t.reviews.title }} <em>{{ t.reviews.titleEm }}</em></h2>
+    </div>
+    @if (reviewsLoading) {
+      <div class="reviews-loading">
+        <div class="loading-spinner"></div>
+        <p>{{ t.reviews.loading }}</p>
+      </div>
+    }
+    @if (!reviewsLoading && reviews.length > 0) {
+      <div class="reviews-grid">
+        @for (review of reviews; track $index) {
+          <div class="review-card">
+            <div class="review-header">
+              <div class="reviewer-avatar">
+                @if (review.user?.thumbnail) {
+                  <img [src]="review.user.thumbnail" [alt]="review.user?.name" />
+                } @else {
+                  <span>{{ review.user?.name?.charAt(0) }}</span>
+                }
+              </div>
+              <div class="reviewer-info">
+                <span class="reviewer-name">{{ review.user?.name }}</span>
+                @if (review.user?.localGuide) {
+                  <span class="local-guide-badge">{{ t.reviews.localGuide }}</span>
+                }
+                <span class="reviewer-stats">{{ review.user?.reviews }} {{ t.reviews.reviews }}</span>
+              </div>
+            </div>
+            <div class="review-stars">
+              @for (star of getStars(review.rating); track star) {
+                <span class="star" [class.filled]="star <= review.rating">★</span>
+              }
+              <span class="review-date">{{ review.date }}</span>
+            </div>
+            <p class="review-text">{{ review.snippet }}</p>
+          </div>
+        }
+      </div>
+    }
+    @if (!reviewsLoading && reviewsError) {
+      <div class="reviews-error">
+        <p>{{ t.reviews.error }}</p>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-gradient"></div>
+  <div class="container contact-inner">
+    <div class="contact-text">
+      <span class="section-label">{{ t.contact.label }}</span>
+      <h2 class="section-title">{{ t.contact.title }}<br><em>{{ t.contact.titleEm }}</em></h2>
+      <ul class="lounge-info">
+        <li>📍 {{ t.contact.address }}</li>
+        <li>📞 {{ t.contact.phone }}</li>
+        <li>🕐 {{ t.contact.hours }}</li>
+        <li>✉️ {{ config.business.email }}</li>
+      </ul>
+      <div class="map-container" (click)="openMap()" [title]="t.contact.openMap" role="button" tabindex="0" (keydown.enter)="openMap()">
+        <iframe
+          [src]="mapEmbedUrl"
+          frameborder="0"
+          scrolling="no"
+          marginheight="0"
+          marginwidth="0"
+          loading="lazy"
+          aria-hidden="true">
+        </iframe>
+        <div class="map-overlay">
+          <span class="map-hint">🗺 {{ t.contact.openMap }}</span>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" (ngSubmit)="submitReservation(f)" #f="ngForm">
+      <h3>{{ t.contact.title }} {{ t.contact.titleEm }}</h3>
+      @if (submitSuccess) { <div class="form-success">{{ t.contact.success }}</div> }
+      @if (submitError) { <div class="form-error">{{ t.contact.error }}</div> }
+      <div class="form-field">
+        <input type="text" [(ngModel)]="reservation.name" name="name" required #nameField="ngModel" [placeholder]="t.contact.namePlaceholder" />
+        @if (nameField.invalid && (nameField.dirty || nameField.touched)) {
+          <span class="field-error">{{ t.validation.required }}</span>
+        }
+      </div>
+      <div class="form-field">
+        <input type="email" [(ngModel)]="reservation.email" name="email" required email #emailField="ngModel" [placeholder]="t.contact.emailPlaceholder" />
+        @if (emailField.invalid && (emailField.dirty || emailField.touched)) {
+          @if (emailField.errors?.['required']) {
+            <span class="field-error">{{ t.validation.required }}</span>
+          }
+          @if (emailField.errors?.['email']) {
+            <span class="field-error">{{ t.validation.emailInvalid }}</span>
+          }
+        }
+      </div>
+      <div class="form-field">
+        <input type="tel" [(ngModel)]="reservation.phone" name="phone" required #phoneField="ngModel" [placeholder]="t.contact.phonePlaceholder" />
+        @if (phoneField.invalid && (phoneField.dirty || phoneField.touched)) {
+          <span class="field-error">{{ t.validation.required }}</span>
+        }
+      </div>
+      <div class="form-field">
+        <input type="date" [(ngModel)]="reservation.date" name="date" required #dateField="ngModel" />
+        @if (dateField.invalid && (dateField.dirty || dateField.touched)) {
+          <span class="field-error">{{ t.validation.required }}</span>
+        }
+      </div>
+      <div class="form-field">
+        <input type="time" [(ngModel)]="reservation.time" name="time" required #timeField="ngModel" />
+        @if (timeField.invalid && (timeField.dirty || timeField.touched)) {
+          <span class="field-error">{{ t.validation.required }}</span>
+        }
+      </div>
+      <div class="form-field">
+        <input type="number" [(ngModel)]="reservation.partySize" name="partySize" required min="1" max="50" #partySizeField="ngModel" [placeholder]="t.contact.partySizePlaceholder" />
+        @if (partySizeField.invalid && (partySizeField.dirty || partySizeField.touched)) {
+          <span class="field-error">{{ t.validation.required }}</span>
+        }
+      </div>
+      <label class="culture-select-label">{{ t.contact.languageLabel }}</label>
+      <div class="form-field">
+        <select [(ngModel)]="reservation.culture" name="culture" required #cultureField="ngModel">
+          <option value="el">{{ t.contact.languageEl }}</option>
+          <option value="en">{{ t.contact.languageEn }}</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <textarea [(ngModel)]="reservation.notes" name="notes" rows="3" [placeholder]="t.contact.notesPlaceholder"></textarea>
+      </div>
+      <button type="submit" class="btn btn-rose" style="width:100%;justify-content:center" [disabled]="isSubmitting || f.invalid">
+        @if (isSubmitting) { <span class="btn-spinner"></span> }
+        {{ isSubmitting ? t.contact.submitting : t.contact.submit }}
+      </button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-logo">{{ config.business.name }}</div>
+    <p>{{ t.footer.tagline }}</p>
+    <p>{{ t.footer.copy }}</p>
+    <ul class="footer-links">
+      <li><a [href]="config.business.social.instagram" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a [href]="config.business.social.facebook">Facebook</a></li>
+    </ul>
+  </div>
+</footer>

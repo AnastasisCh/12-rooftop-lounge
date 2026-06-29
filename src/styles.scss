@@ -1,0 +1,65 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Legacy color tokens (kept for backward compatibility) */
+  --night: #070710;
+  --deep-navy: #0D0D2B;
+  --purple-dark: #1A0A3D;
+  --purple-mid: #2D1B69;
+  --rose-gold: #C09060;
+  --rose-light: #D4B08A;
+  --rose-pale: #E8CCA8;
+  --sunset: #C05030;
+  --horizon: #803880;
+  --cream: #FFF5EC;
+  --lavender: #B8B0D0;
+  --muted: #706880;
+  --glass-bg: rgba(255,245,236,0.05);
+  --glass-border: rgba(192,144,96,0.2);
+
+  /* Theme-aware tokens — defaults set to dark theme; overridden at runtime by AppComponent */
+  --background: #0a0a1e;
+  --surface: #120d2e;
+  --surface-alt: #1c1640;
+  --text: #f0eeff;
+  --text-muted: rgba(240,238,255,0.45);
+  --accent: #c9a87c;
+  --accent-hover: #e4c49a;
+  --border: rgba(201,168,124,0.18);
+  --nav-bg: rgba(10,10,30,0.97);
+  --overlay: rgba(10,10,30,0.7);
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Raleway', system-ui, sans-serif;
+  --container: 1280px;
+  --transition: 0.45s ease;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-sans); color: var(--text); background: var(--background); line-height: 1.7; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+.container { max-width: var(--container); margin: 0 auto; padding: 0 3rem; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.9rem 2.5rem; font-family: var(--font-sans);
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em;
+  text-transform: uppercase; border: none; cursor: pointer;
+  transition: var(--transition); border-radius: 0;
+}
+.btn-rose { background: var(--accent); color: var(--background); &:hover { background: var(--accent-hover); } }
+.btn-glass { background: var(--overlay); color: var(--text); border: 1px solid var(--border); backdrop-filter: blur(8px); &:hover { background: var(--surface-alt); border-color: var(--accent); } }
+.btn-outline-rose { background: transparent; color: var(--accent); border: 1px solid var(--accent); &:hover { background: var(--accent); color: var(--background); } }
+
+.section-label {
+  display: block; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--accent); opacity: 0.7; margin-bottom: 0.6rem;
+}
+.section-title {
+  font-family: var(--font-serif); font-size: clamp(2.2rem, 4vw, 4rem);
+  font-weight: 300; color: var(--text); line-height: 1.1; margin-bottom: 1.25rem;
+  em { font-style: italic; color: var(--accent); font-weight: 400; }
+}
