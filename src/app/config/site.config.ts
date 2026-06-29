@@ -3,8 +3,8 @@ export type Culture = 'el' | 'en';
 
 export const SITE_CONFIG = {
   api: {
-    baseUrl: 'http://localhost:5007',
-    market: 'rooftop-lounge',
+    baseUrl: 'https://marketswebapi-gde3hpftfdhuawaj.westeurope-01.azurewebsites.net',
+    market: 'RooftopLounge',
   },
   theme: {
     default: 'dark' as Theme,
