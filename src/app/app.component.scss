@@ -138,6 +138,25 @@
   .hero-info-strip { flex-wrap: wrap; gap: 1.25rem; }
 }
 
+@media (max-width: 480px) {
+  .container { padding: 0 1rem; }
+  .navbar { padding: 1rem; }
+  .nav-controls { gap: 0.35rem; }
+  .theme-toggle, .culture-toggle { padding: 0.3rem 0.5rem; font-size: 0.7rem; }
+  .hero { min-height: 500px; }
+  .hero-content { padding: 3rem 1rem 2rem; }
+  .hero-content h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .btn { width: 100%; justify-content: center; }
+  .about-text { padding: 2rem 1.25rem; }
+  .contact { padding: 4rem 0; }
+  .contact-form { padding: 1.5rem; }
+  .contact-form input, .contact-form select, .contact-form textarea { width: 100%; }
+  .menu-section { padding: 4rem 0; }
+  .reviews { padding: 4rem 0; }
+  .section-title { font-size: clamp(1.6rem, 6vw, 2rem); }
+}
+
 /* Reviews Section */
 .reviews {
   padding: 6rem 0;
